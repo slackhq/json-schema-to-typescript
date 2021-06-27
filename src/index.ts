@@ -15,6 +15,27 @@ import {validate} from './validator'
 
 export {EnumJSONSchema, JSONSchema, NamedEnumJSONSchema, CustomTypeJSONSchema} from './types/JSONSchema'
 
+/**
+ * Defines the available options for how enums can generated
+ */
+export const EnumGenType = {
+  Default: 'default',
+  /**
+   * Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members)?
+   */
+  Const: 'const',
+  /**
+   * Generate a const literal object for enums, as well as an inferred enum type
+   */
+  Literal: 'literal',
+  /**
+   * Generate a const literal object for enums, as well as an inferred enum type
+   * in a format compatible with .d.ts files
+   */
+  TypeDef: 'dts'
+} as const
+export type EnumGenType = typeof EnumGenType[keyof typeof EnumGenType]
+
 export interface Options {
   /**
    * Disclaimer comment prepended to the top of each generated file.
@@ -29,13 +50,9 @@ export interface Options {
    */
   declareExternallyReferenced: boolean
   /**
-   * Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members)?
+   * Defines how enums should be generated; defaults to EnumGenType.Default ('default')
    */
-  enableConstEnums: boolean
-  /**
-   * Generate a const literal object for enums, as well as an inferred enum type
-   */
-  enableEnumTypes: boolean
+  enumGenType: EnumGenType
   /**
    * Format code? Set this to `false` to improve performance.
    */
@@ -84,8 +101,7 @@ export const DEFAULT_OPTIONS: Options = {
 */`,
   cwd: process.cwd(),
   declareExternallyReferenced: true,
-  enableConstEnums: true,
-  enableEnumTypes: false,
+  enumGenType: EnumGenType.Default,
   format: true,
   ignoreMinAndMaxItems: false,
   ignoreMaxItems: false,

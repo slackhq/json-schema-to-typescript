@@ -1,5 +1,5 @@
 import {omit} from 'lodash'
-import {DEFAULT_OPTIONS, Options} from './index'
+import {DEFAULT_OPTIONS, Options, EnumGenType} from './index'
 import {
   AST,
   ASTWithStandaloneName,
@@ -325,26 +325,30 @@ function generateComment(comment: string): string {
 }
 
 function generateStandaloneEnum(ast: TEnum, options: Options): string {
-  if (options.enableEnumTypes) return generateStandaloneEnumAndType(ast, options)
-
-  return (
-    (hasComment(ast) ? generateComment(ast.comment) + '\n' : '') +
-    'export ' +
-    (options.enableConstEnums ? 'const ' : '') +
-    `enum ${toSafeString(ast.standaloneName)} {` +
-    '\n' +
-    ast.params.map(({ast, keyName}) => keyName + ' = ' + generateType(ast, options)).join(',\n') +
-    '\n' +
-    '}'
-  )
+  switch (options.enumGenType) {
+    case EnumGenType.Literal:
+    case EnumGenType.TypeDef:
+      return generateStandaloneEnumAndType(ast, options)
+    default:
+      return (
+        (hasComment(ast) ? generateComment(ast.comment) + '\n' : '') +
+        'export ' +
+        (options.enumGenType === EnumGenType.Const ? 'const ' : '') +
+        `enum ${toSafeString(ast.standaloneName)} {` +
+        '\n' +
+        ast.params.map(({ast, keyName}) => keyName + ' = ' + generateType(ast, options)).join(',\n') +
+        '\n' +
+        '}'
+      )
+  }
 }
 
 function generateStandaloneEnumAndType(ast: TEnum, options: Options): string {
   return (
     (hasComment(ast) ? generateComment(ast.comment) + '\n' : '') +
-    `export const ${toSafeString(ast.standaloneName)} = {
+    `export const ${toSafeString(ast.standaloneName)}${options.enumGenType === EnumGenType.Literal ? ' =' : ':'} {
     ${ast.params.map(({ast, keyName}) => keyName + ': ' + generateType(ast, options)).join(',\n')}
-} as const;
+}${options.enumGenType === EnumGenType.Literal ? ' as const' : ''};
 export type ${toSafeString(ast.standaloneName)} = typeof ${toSafeString(
       ast.standaloneName
     )}[keyof typeof ${toSafeString(ast.standaloneName)}];`

@@ -1,6 +1,6 @@
 {
   "name": "@tinyspeck/json-schema-to-typescript",
-  "version": "9.1.1-slack.2",
+  "version": "9.1.1-slack.3",
   "description": "compile json schema to typescript typings",
   "main": "dist/src/index.js",
   "bin": {

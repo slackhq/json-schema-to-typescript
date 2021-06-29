@@ -155,10 +155,8 @@ Boolean values can be set to false using the 'no-' prefix.
       Root directory for resolving $ref
   --declareExternallyReferenced
       Declare external schemas referenced via '$ref'?
-  --enableConstEnums
-      Prepend enums with 'const'?
-  --enableEnumTypes
-      Generate a const literal object for enums, as well as an inferred enum type
+  --enumGenType
+      Defines how enums should be generated; supported options are 'default', 'const', 'literal' and 'dts'
   --format
       Format code? Set this to false to improve performance.
   --style.XXX=YYY

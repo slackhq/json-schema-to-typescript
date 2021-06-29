@@ -1,3 +1,5 @@
+import {EnumGenType} from '../../src'
+
 export const input = {
   title: 'Enum',
   type: 'object',
@@ -117,5 +119,5 @@ export const input = {
 }
 
 export const options = {
-  enableEnumTypes: true
+  enumGenType: EnumGenType.Default
 }

@@ -21,7 +21,7 @@ export {EnumJSONSchema, JSONSchema, NamedEnumJSONSchema, CustomTypeJSONSchema} f
 export const EnumGenType = {
   Default: 'default',
   /**
-   * Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members)?
+   * Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#const-enums)?
    */
   Const: 'const',
   /**

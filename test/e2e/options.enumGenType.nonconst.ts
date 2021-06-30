@@ -119,5 +119,5 @@ export const input = {
 }
 
 export const options = {
-  enumGenType: EnumGenType.Default
+  enumGenType: EnumGenType.NonConst
 }

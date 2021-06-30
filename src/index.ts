@@ -19,7 +19,7 @@ export {EnumJSONSchema, JSONSchema, NamedEnumJSONSchema, CustomTypeJSONSchema} f
  * Defines the available options for how enums can generated
  */
 export const EnumGenType = {
-  Default: 'default',
+  NonConst: 'nonconst',
   /**
    * Prepend enums with [`const`](https://www.typescriptlang.org/docs/handbook/enums.html#const-enums)?
    */

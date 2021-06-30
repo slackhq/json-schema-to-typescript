@@ -50,7 +50,7 @@ export interface Options {
    */
   declareExternallyReferenced: boolean
   /**
-   * Defines how enums should be generated; defaults to EnumGenType.Default ('default')
+   * Defines how enums should be generated; defaults to EnumGenType.Const ('const')
    */
   enumGenType: EnumGenType
   /**
@@ -101,7 +101,7 @@ export const DEFAULT_OPTIONS: Options = {
 */`,
   cwd: process.cwd(),
   declareExternallyReferenced: true,
-  enumGenType: EnumGenType.Default,
+  enumGenType: EnumGenType.Const,
   format: true,
   ignoreMinAndMaxItems: false,
   ignoreMaxItems: false,
